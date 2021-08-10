@@ -1,7 +1,7 @@
-﻿
+
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService'
-import { Route, Redirect } from 'react-router-dom'
+
 
 export class RockLike extends Component {
 
@@ -29,7 +29,6 @@ export class RockLike extends Component {
             },
             body: JSON.stringify(site)
         };
-        debugger;
         const response = await fetch(url, requestOptions)
         if (response.ok) {
             const data = await response.json();
@@ -39,10 +38,6 @@ export class RockLike extends Component {
             this.setState({ loading: false, statusRequest:401 });
         }
     };
-
-    refreshPage() {
-        this.populateLikesCount();
-    }
 
     renderButtonLikeCount() {
         var spanCurtidas;
@@ -66,9 +61,6 @@ export class RockLike extends Component {
             </div>
         );
     }
-
-
-
 
     render() {
 
