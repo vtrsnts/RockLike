@@ -40,21 +40,23 @@ namespace RockLike
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication().AddFacebook(facebookOptions =>
-            {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                facebookOptions.Events = new OAuthEvents()
-                {
-                    OnRemoteFailure = loginFailureHandler =>
-                    {
-                        var authProperties = facebookOptions.StateDataFormat.Unprotect(loginFailureHandler.Request.Query["state"]);
-                        loginFailureHandler.Response.Redirect("/Identity/Account/Login");
-                        loginFailureHandler.HandleResponse();
-                        return Task.FromResult(0);
-                    }
-                };
-            })
+            services.AddAuthentication()
+                
+            //    .AddFacebook(facebookOptions =>
+            //{
+            //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            //    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            //    facebookOptions.Events = new OAuthEvents()
+            //    {
+            //        OnRemoteFailure = loginFailureHandler =>
+            //        {
+            //            var authProperties = facebookOptions.StateDataFormat.Unprotect(loginFailureHandler.Request.Query["state"]);
+            //            loginFailureHandler.Response.Redirect("/Identity/Account/Login");
+            //            loginFailureHandler.HandleResponse();
+            //            return Task.FromResult(0);
+            //        }
+            //    };
+            //})
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
