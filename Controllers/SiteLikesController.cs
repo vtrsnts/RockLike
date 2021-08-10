@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,11 +60,14 @@ namespace RockLike.Controllers
             if (siteLikeExistente == null)
             {
                 siteLike.Like = true;
+                siteLike.LastInteration = DateTime.Now;
                 _context.SiteLike.Add(siteLike);
             }
             else
+            {
+                siteLikeExistente.LastInteration = DateTime.Now;
                 siteLikeExistente.Like = !siteLikeExistente.Like;
-
+            }
             _context.SaveChanges();
 
             return _context.SiteLike.Include(c => c.Site).Count(c => c.Site.Url.ToUpper().Trim().Equals(existente.Url.ToUpper().Trim()) && c.Like);
